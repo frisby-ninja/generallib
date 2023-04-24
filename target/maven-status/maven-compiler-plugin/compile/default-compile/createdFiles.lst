@@ -1,0 +1,4 @@
+net\ninjaworks\generalapi\OS.class
+net\ninjaworks\generalapi\ArrayManipulator.class
+net\ninjaworks\generalapi\NetUtils.class
+net\ninjaworks\generalapi\IndexableMap.class
