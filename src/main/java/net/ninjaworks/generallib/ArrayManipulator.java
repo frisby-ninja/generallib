@@ -146,7 +146,7 @@ public class ArrayManipulator<T> {
     public boolean arrayContainsElement(T element) {
         if(this.array != null) {
             for (T el : array) {
-                if (el.equals(element))
+                if (el != null && el.equals(element))
                     return true;
             }
         }

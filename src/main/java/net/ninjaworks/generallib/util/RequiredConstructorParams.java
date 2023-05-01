@@ -7,14 +7,14 @@ import java.lang.annotation.Target;
 
 /**
  * An annotation that when applied to another annotation,
- * requires the given parameters of any method annotated with the latter.
+ * requires the given parameters of any constructor present in any class annotated with the latter.
  * The check is not explicitly performed;
- *  You will need to use an AnnotationProcessor (connected to the targeted annotation) to perform the check
- *  (or to add the AutoHandle annotation to the implementing annotation).
+ *  You will need to use an AnnotationProcessor (connected to the targeted annotation) to perform the check;
+ *  or to add the AutoHandle annotation to the implementing annotation.
  */
 @Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RequiredMethodParams {
+public @interface RequiredConstructorParams {
     /**
      * The class list version of the required parameters.
      * @return The list

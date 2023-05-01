@@ -22,32 +22,29 @@ public class JsonPart {
 
     public static class Builder {
 
-        private ReducedJsonPart[] tree = new ReducedJsonPart[0];
-        private final ArrayManipulator<JsonPart> arrayManipulator = new ArrayManipulator<>();
-        private final String header;
-        private final Type type;
+        private JsonPart[] tree = new JsonPart[0];
+        private final ArrayManipulator<JsonPart> jsonPartArrayManipulator = new ArrayManipulator<>();
 
-        public Builder(String header, Type type) {
-            this.header = header;
-            this.type = type;
+        public Builder() {
+
         }
 
-        public Builder within() {
+        public Builder addTreeElement(ReducedJsonPart part) {
+            jsonPartArrayManipulator.setArray(tree);
+            tree = jsonPartArrayManipulator.addElement(new JsonPart(part.header, tree, part.type));
             return this;
         }
 
         public JsonPart build() {
-            return new JsonPart(header, convertTree(), type);
+            return new JsonPart(tree[tree.length - 1].header, convertTree(), tree[tree.length - 1].type);
         }
 
         private JsonPart[] convertTree() {
             JsonPart[] parts = new JsonPart[0];
-            JsonPart[] previousParts = new JsonPart[0];
-            for(int i = 0; i < tree.length; i++) {
-                ReducedJsonPart part = tree[i];
-                arrayManipulator.setArray(parts);
-                parts = arrayManipulator.addElement(new JsonPart(part.header, previousParts, part.type));
-                previousParts = parts;
+            for (int i = 0; i < tree.length - 1; i++) {
+                JsonPart part = tree[i];
+                jsonPartArrayManipulator.setArray(parts);
+                parts = jsonPartArrayManipulator.addElement(part);
             }
             return parts;
         }
@@ -74,9 +71,5 @@ public class JsonPart {
             }
             return null;
         }
-    }
-
-    public static record Associations (Object object, String enclosedStr) {
-
     }
 }

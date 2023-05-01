@@ -30,21 +30,21 @@ public class NetUtils {
             try {
                 Desktop.getDesktop().browse(url.toURI());
             } catch (Exception e) {
-                Logger.GENERAL_API_LOGGER.printException(e);
+                Logger.GENERAL_LIB_LOGGER.printException(e);
             }
         } else if (os.equals(OS.MACOS)) {
             Runtime runtime = Runtime.getRuntime();
             try {
                 runtime.exec(new String[]{"open", url.toString()});
             } catch (Exception e) {
-                Logger.GENERAL_API_LOGGER.printException(e);
+                Logger.GENERAL_LIB_LOGGER.printException(e);
             }
         } else if (os.equals(OS.LINUX)) {
             Runtime runtime = Runtime.getRuntime();
             try {
                 runtime.exec(new String[]{"xdg-open", url.toString()});
             } catch (Exception e) {
-                Logger.GENERAL_API_LOGGER.printException(e);
+                Logger.GENERAL_LIB_LOGGER.printException(e);
             }
         }
     }
@@ -59,7 +59,7 @@ public class NetUtils {
         try {
             content = IOUtils.toString(url.openStream(), Charset.defaultCharset());
         } catch (Exception e) {
-            Logger.GENERAL_API_LOGGER.printException(e);
+            Logger.GENERAL_LIB_LOGGER.printException(e);
         }
         return content;
     }
@@ -90,7 +90,7 @@ public class NetUtils {
             fos = new FileOutputStream(file);
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         } catch (Exception e) {
-            Logger.GENERAL_API_LOGGER.printException(e);
+            Logger.GENERAL_LIB_LOGGER.printException(e);
         }
         try {
             if(fos != null) {
@@ -100,7 +100,7 @@ public class NetUtils {
             if (file != null) {
                 boolean bl = file.delete();
                 if(!bl) {
-                    Logger.GENERAL_API_LOGGER.error("Could not delete file : " + file);
+                    Logger.GENERAL_LIB_LOGGER.error("Could not delete file : " + file);
                 }
             }
             File dir = new File(System.getProperty("java.io.tmpdir").replace("\\", "/")
@@ -108,11 +108,11 @@ public class NetUtils {
             if(dir.isDirectory()) {
                 boolean bl = dir.delete();
                 if (!bl) {
-                    Logger.GENERAL_API_LOGGER.error("Could not delete directory : " + dir);
+                    Logger.GENERAL_LIB_LOGGER.error("Could not delete directory : " + dir);
                 }
             }
         } catch (Exception e) {
-            Logger.GENERAL_API_LOGGER.printException(e);
+            Logger.GENERAL_LIB_LOGGER.printException(e);
         }
         return file;
     }
@@ -146,7 +146,7 @@ public class NetUtils {
             fos = new FileOutputStream(file);
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         } catch (Exception e) {
-            Logger.GENERAL_API_LOGGER.printException(e);
+            Logger.GENERAL_LIB_LOGGER.printException(e);
         }
         try {
             if(fos != null) {
@@ -158,12 +158,12 @@ public class NetUtils {
                 newFile.delete();
                 Files.copy(tempPath, fullPath);
             } catch (NoSuchFileException e) {
-                Logger.GENERAL_API_LOGGER.printException(e);
+                Logger.GENERAL_LIB_LOGGER.printException(e);
             }
             if (file != null) {
                 boolean bl = file.delete();
                 if(!bl) {
-                    Logger.GENERAL_API_LOGGER.error("Could not delete file : " + file);
+                    Logger.GENERAL_LIB_LOGGER.error("Could not delete file : " + file);
                 }
             }
             File dir = new File(System.getProperty("java.io.tmpdir").replace("\\", "/")
@@ -171,11 +171,11 @@ public class NetUtils {
             if(dir.isDirectory()) {
                 boolean bl = dir.delete();
                 if (!bl) {
-                    Logger.GENERAL_API_LOGGER.error("Could not delete directory : " + dir);
+                    Logger.GENERAL_LIB_LOGGER.error("Could not delete directory : " + dir);
                 }
             }
         } catch (IOException e) {
-            Logger.GENERAL_API_LOGGER.printException(e);
+            Logger.GENERAL_LIB_LOGGER.printException(e);
         }
         return file;
     }
@@ -203,7 +203,7 @@ public class NetUtils {
             FileOutputStream fos = new FileOutputStream(fullPath.toFile());
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         } catch (Exception e) {
-            Logger.GENERAL_API_LOGGER.printException(e);
+            Logger.GENERAL_LIB_LOGGER.printException(e);
         }
         return file;
     }
@@ -226,7 +226,7 @@ public class NetUtils {
             FileOutputStream fos = new FileOutputStream(fullPath.toFile());
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         } catch (Exception e) {
-            Logger.GENERAL_API_LOGGER.printException(e);
+            Logger.GENERAL_LIB_LOGGER.printException(e);
         }
         return file;
     }

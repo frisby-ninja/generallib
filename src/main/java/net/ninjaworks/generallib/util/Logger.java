@@ -11,7 +11,7 @@ public class Logger implements org.slf4j.Logger {
     private final String NAME;
     private Level level;
 
-    public static final Logger GENERAL_API_LOGGER = new Logger("general_api");
+    public static final Logger GENERAL_LIB_LOGGER = new Logger("general_api");
 
     public Logger(String name) {
         NAME = name;

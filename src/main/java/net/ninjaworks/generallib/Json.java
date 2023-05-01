@@ -17,23 +17,19 @@ public class Json {
     private final IndexableMap<String, Object> fileMap;
 
     /**
-     * Creates a new Json Object from the given json file string.
-     * @param file The file ; This program assumes it is a FULL and valid json file
+     * Creates a new Json object from the given json file string.
+     * @param file The file; This program assumes it is a FULL and valid json file
+     * @return The created Json object
      */
-    public Json(File file) {
+    public static Json fromFile(File file) {
         StringBuilder builder = new StringBuilder();
         try {
             Scanner reader = new Scanner(file);
             while(reader.hasNextLine()) {
                 builder.append(reader.nextLine());
             }
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        fileString = builder.toString();
-        stringManipulator.setString(fileString);
-        fileMap = getWithinCurlyBrackets(stringManipulator.getFromIndexUntilEndChar(1, '}', '{'));
+        } catch (FileNotFoundException ignored) {}
+        return new Json(builder.toString());
     }
 
     @Override
@@ -42,8 +38,8 @@ public class Json {
     }
 
     /**
-     * Creates a new Json Object from the given json file string.
-     * @param fileString The file (converted to a string) ; This program assumes it is a FULL and valid json file
+     * Creates a new Json object from the given json file string.
+     * @param fileString The file (converted to a string); This program assumes it is a FULL and valid json file
      */
     public Json(String fileString) {
         this.fileString = fileString;
@@ -143,7 +139,7 @@ public class Json {
                             stringManipulator.getFromIndexUntilEndChar(i + 2, '}', '{'));
                     default -> doNothing(i + 2);
                 };
-                Logger.GENERAL_API_LOGGER.debug(String.valueOf(chars[i]));
+                Logger.GENERAL_LIB_LOGGER.debug(String.valueOf(chars[i]));
             }
             chr = chars[i];
             if(!chars2NotAppend.arrayContainsElement(chr)) {

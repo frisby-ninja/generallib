@@ -172,7 +172,7 @@ public class FileBasedClass {
             previouslyUsedConstructorParamClasses = parameters;
             return instance;
         } catch(Exception e) {
-            Logger.GENERAL_API_LOGGER.printException(e);
+            Logger.GENERAL_LIB_LOGGER.printException(e);
         }
         return null;
     }
@@ -208,7 +208,7 @@ public class FileBasedClass {
                 }
                 return obj;
             } catch (Exception e) {
-                Logger.GENERAL_API_LOGGER.printException(e);
+                Logger.GENERAL_LIB_LOGGER.printException(e);
                 return e;
             }
         }
@@ -246,7 +246,7 @@ public class FileBasedClass {
                 try {
                     instance = newInstance(false, previouslyUsedConstructorParams);
                 } catch (Exception e) {
-                    Logger.GENERAL_API_LOGGER.printException(e);
+                    Logger.GENERAL_LIB_LOGGER.printException(e);
                 }
             }
             return success;
@@ -314,7 +314,7 @@ public class FileBasedClass {
             try {
                 instance = newInstance(false, previouslyUsedConstructorParams);
             } catch (Exception e) {
-                Logger.GENERAL_API_LOGGER.printException(e);
+                Logger.GENERAL_LIB_LOGGER.printException(e);
             }
         }
         return success;
@@ -336,7 +336,7 @@ public class FileBasedClass {
             clazz = Class.forName(pkg + "." + name, true, classLoader);
             instance = null;
         } catch (Exception e) {
-            Logger.GENERAL_API_LOGGER.printException(e);
+            Logger.GENERAL_LIB_LOGGER.printException(e);
         }
         compiled = (result == 0);
         return compiled;
@@ -414,7 +414,7 @@ public class FileBasedClass {
             writer.flush();
             writer.close();
         } catch (Exception e) {
-            Logger.GENERAL_API_LOGGER.printException(e);
+            Logger.GENERAL_LIB_LOGGER.printException(e);
         }
     }
 
