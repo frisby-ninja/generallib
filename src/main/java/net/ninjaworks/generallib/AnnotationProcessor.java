@@ -5,6 +5,7 @@ import net.ninjaworks.generallib.util.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Set;
 
 /**
@@ -81,6 +82,21 @@ public class AnnotationProcessor {
                     }
                 }
             }
+            if(annotation.isAnnotationPresent(RequiredMethodModifier.class)) {
+                Set<Method> methods = ReflectionUtils.getAllMethodsWithAnnotation((Class<? extends Annotation>) annotation);
+                if (methods.size() > 0) {
+                    if (processor == null) {
+                        processor = new AnnotationProcessor((Class<? extends Annotation>) annotation);
+                    } else {
+                        processor.setTarget((Class<? extends Annotation>) annotation);
+                    }
+                    for (Method method : methods) {
+                        if(!processor.methodModifiersConform(method)) {
+                            throw new RuntimeException(new InvalidMethodModifierException(method));
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -146,6 +162,21 @@ public class AnnotationProcessor {
                         } else {
                             RequiredConstructorParams params = annotation.getAnnotation(RequiredConstructorParams.class);
                             generalLibExceptionHandler.handle(new InvalidConstructorParamsException(params.value(), null));
+                        }
+                    }
+                }
+            }
+            if(annotation.isAnnotationPresent(RequiredMethodModifier.class)) {
+                Set<Method> methods = ReflectionUtils.getAllMethodsWithAnnotation((Class<? extends Annotation>) annotation);
+                if (methods.size() > 0) {
+                    if (processor == null) {
+                        processor = new AnnotationProcessor((Class<? extends Annotation>) annotation);
+                    } else {
+                        processor.setTarget((Class<? extends Annotation>) annotation);
+                    }
+                    for (Method method : methods) {
+                        if(!processor.methodModifiersConform(method)) {
+                            generalLibExceptionHandler.handle(new InvalidMethodModifierException(method));
                         }
                     }
                 }
@@ -394,5 +425,17 @@ public class AnnotationProcessor {
             }
         }
         return null;
+    }
+
+    public boolean methodModifiersConform(Method method) {
+        if(target != null && target.isAnnotationPresent(RequiredMethodModifier.class)) {
+            boolean bl = target.getAnnotation(RequiredMethodModifier.class).value();
+            if(bl) {
+                return Modifier.isStatic(method.getModifiers());
+            } else {
+                return !Modifier.isStatic(method.getModifiers());
+            }
+        }
+        return true;
     }
 }

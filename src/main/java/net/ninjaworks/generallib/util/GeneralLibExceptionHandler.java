@@ -6,20 +6,26 @@ package net.ninjaworks.generallib.util;
 public interface GeneralLibExceptionHandler {
 
     /**
-     * Handles an InvalidAnnotationsException.
+     * Handles an {@link InvalidAnnotationsException}.
      * @param e The exception
      */
     void handle(InvalidAnnotationsException e);
 
     /**
-     * Handles an InvalidMethodParamsException.
+     * Handles an {@link InvalidMethodParamsException}.
      * @param e The exception
      */
     void handle(InvalidMethodParamsException e);
 
     /**
-     * Handles an InvalidConstructorParamsException.
+     * Handles an {@link InvalidConstructorParamsException}.
      * @param e The exception
      */
     void handle(InvalidConstructorParamsException e);
+
+    /**
+     * Handles an {@link InvalidMethodModifierException}
+     * @param e The exception
+     */
+    void handle(InvalidMethodModifierException e);
 }
